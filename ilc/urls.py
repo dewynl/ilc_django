@@ -16,9 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from webapp.admins.views import IndexView
+from webapp.admins.views import IndexView, ProfesoresListView, CrearProfesorFormView, EditarProfesorFormView, \
+    HorariosListView, CrearHorarioFormView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('admins/', IndexView.as_view(), name='admins-index'),
+    #PROFESORES
+    path('admins/profesores/', ProfesoresListView.as_view(), name='profesores-index'),
+    path('admins/profesores/crear/', CrearProfesorFormView.as_view(), name='profesores-crear'),
+    path('admins/profesores/editar/<int:pk>', EditarProfesorFormView.as_view(), name='profesores-editar'),
+    #HORARIOS
+    path('admins/horarios/', HorariosListView.as_view(), name='horario-index'),
+    path('admins/horarios/crear/', CrearHorarioFormView.as_view(), name='horario-crear'),
+    #path('admins/horarios/editar/<int:pk>', EditarHorarioFormView.as_view(), name='horario-editar'),
 ]

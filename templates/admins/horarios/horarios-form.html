@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Nuevo Horario {% endblock %}
+
+{% block page_title %} Creando nuevo horario {% endblock %}
+
+{% block css %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/libs/pickadate/lib/themes/default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/libs/pickadate/lib/themes/default.date.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/libs/pickadate/lib/themes/default.time.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Nuevo Horario</h4>
+                    <h6 class="card-subtitle"> Llene las informaciones requeridas </h6>
+                    <form class="m-t-30 form-group" method="post" action="">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        </div>
+                        <button type="submit" id="goBackBtn" class="btn btn-danger">Cancelar</button>
+                        <button type="submit" class="btn btn-primary offset-10">Aceptar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- row -->
+
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{% static 'assets/libs/pickadate/lib/compressed/picker.js' %}"></script>
+    <script src="{% static 'assets/libs/pickadate/lib/compressed/picker.date.js' %}"></script>
+    <script src="{% static 'assets/libs/pickadate/lib/compressed/picker.time.js' %}"></script>
+    <script src="{% static 'assets/libs/pickadate/lib/compressed/legacy.js' %}"></script>
+    <script src="{% static 'assets/libs/moment/moment.js' %}"></script>
+    <script src="{% static 'assets/libs/daterangepicker/daterangepicker.js' %}"></script>
+    <script type="text/javascript">
+        $("#goBackBtn").on('click', function (e) {
+            e.preventDefault();
+            window.history.back();
+        });
+
+        $("select").select2({
+            placeholder: "Seleccione",
+            allowClear: true,
+            minimumResultsForSearch: -1
+        });
+
+        $('.pickatime').pickatime();
+
+    </script>
+{% endblock %}

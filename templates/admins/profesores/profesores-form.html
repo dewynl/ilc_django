@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Nuevo Profesor {% endblock %}
+
+{% block page_title %} Creando nuevo profesor {% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+    <!-- row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Nuevo Profesor</h4>
+                    <h6 class="card-subtitle"> All with bootstrap element classies </h6>
+                    <form class="m-t-30 form-group" method="post" action="">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        </div>
+                        <button type="submit" id="goBackBtn" class="btn btn-danger">Cancelar</button>
+                        <button type="submit" class="btn btn-primary offset-10">Aceptar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- row -->
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $("#goBackBtn").on('click', function (e) {
+            e.preventDefault();
+            window.history.back();
+        });
+    </script>
+{% endblock %}
