@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from webapp.admins.views import IndexView, ProfesoresListView, CrearProfesorFormView, EditarProfesorFormView, \
-    HorariosListView, CrearHorarioFormView
+    HorariosListView, CrearHorarioFormView, EditarHorarioFormView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +27,7 @@ urlpatterns = [
     path('admins/profesores/crear/', CrearProfesorFormView.as_view(), name='profesores-crear'),
     path('admins/profesores/editar/<int:pk>', EditarProfesorFormView.as_view(), name='profesores-editar'),
     #HORARIOS
-    path('admins/horarios/', HorariosListView.as_view(), name='horario-index'),
-    path('admins/horarios/crear/', CrearHorarioFormView.as_view(), name='horario-crear'),
-    #path('admins/horarios/editar/<int:pk>', EditarHorarioFormView.as_view(), name='horario-editar'),
+    path('admins/horarios/', HorariosListView.as_view(), name='horarios-index'),
+    path('admins/horarios/crear/', CrearHorarioFormView.as_view(), name='horarios-crear'),
+    path('admins/horarios/editar/<int:pk>', EditarHorarioFormView.as_view(), name='horarios-editar'),
 ]

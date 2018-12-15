@@ -41,3 +41,10 @@ class CrearHorarioFormView(CreateView):
     template_name = 'admins/horarios/horarios-form.html'
     success_url = reverse_lazy('horarios-index')
     form_class = HorarioForm
+
+
+class EditarHorarioFormView(UpdateView):
+    model = Horario
+    template_name = 'admins/horarios/horarios-form.html'
+    success_url = reverse_lazy('horarios-index')
+    form_class = HorarioForm

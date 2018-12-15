@@ -7,9 +7,7 @@
 
 {% block css %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/libs/pickadate/lib/themes/default.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/libs/pickadate/lib/themes/default.date.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/libs/pickadate/lib/themes/default.time.css' %}">
+    {{ form.media.css }}
 {% endblock %}
 
 {% block content %}
@@ -38,12 +36,7 @@
 
 {% block js %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script src="{% static 'assets/libs/pickadate/lib/compressed/picker.js' %}"></script>
-    <script src="{% static 'assets/libs/pickadate/lib/compressed/picker.date.js' %}"></script>
-    <script src="{% static 'assets/libs/pickadate/lib/compressed/picker.time.js' %}"></script>
-    <script src="{% static 'assets/libs/pickadate/lib/compressed/legacy.js' %}"></script>
-    <script src="{% static 'assets/libs/moment/moment.js' %}"></script>
-    <script src="{% static 'assets/libs/daterangepicker/daterangepicker.js' %}"></script>
+    {{ form.media.js }}
     <script type="text/javascript">
         $("#goBackBtn").on('click', function (e) {
             e.preventDefault();
@@ -55,8 +48,5 @@
             allowClear: true,
             minimumResultsForSearch: -1
         });
-
-        $('.pickatime').pickatime();
-
     </script>
 {% endblock %}
