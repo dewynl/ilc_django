@@ -1,24 +1,24 @@
 from bootstrap_datepicker_plus import TimePickerInput
 from django.forms import ModelForm
 
-from webapp.models import Profesor, Horario
+from webapp.models import Profesor, Horario, Grupo
 
 
 class ProfesorForm(ModelForm):
     class Meta:
         model = Profesor
-        fields = ['nombre']
+        fields = ['nombre', 'habilitado']
 
     def __init__(self, *args, **kwargs):
         super(ProfesorForm, self).__init__(*args, **kwargs)
         self.fields['nombre'].widget.attrs.update(
             {'class': 'form-control', 'placeholder': 'Ingrese nombre del profesor'})
-
+        self.fields['habilitado'].widget.attrs.update({'class': '', })
 
 class HorarioForm(ModelForm):
     class Meta:
         model = Horario
-        fields = ['hora_inicio', 'hora_fin', 'dias', 'habilitado',]
+        fields = ['hora_inicio', 'hora_fin', 'dias', 'habilitado', ]
         widgets = {
             'hora_inicio': TimePickerInput(),
             'hora_fin': TimePickerInput(),
@@ -34,3 +34,15 @@ class HorarioForm(ModelForm):
             {'class': 'form-control select', 'multiple': 'multiple', 'style': 'width: 100%'})
         self.fields['habilitado'].widget.attrs.update(
             {'class': '', })
+
+
+class GrupoForm(ModelForm):
+    class Meta:
+        model = Grupo
+        fields = ['nombre', 'horario', 'habilitado', ]
+
+    def __init__(self, *args, **kwargs):
+        super(GrupoForm, self).__init__(*args, **kwargs)
+        self.fields['nombre'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Ingrese nombre del grupo'})
+        self.fields['horario'].widget.attrs.update({'class': 'form-control select', 'style': 'width: 100%'})
+        self.fields['habilitado'].widget.attrs.update({'class': '', })

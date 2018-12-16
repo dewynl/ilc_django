@@ -18,9 +18,11 @@ class Profesor(models.Model):
     class Meta:
         verbose_name_plural = _('Profesores')
 
-    def clean(self):
+    '''
+        def clean(self):
         if Profesor.objects.filter(nombre=self.nombre).exists():
             raise ValidationError(_('Ya existe un profesor con ese nombre'))
+    '''
 
 
 class Dia(models.Model):
@@ -75,14 +77,31 @@ class Cuestionario(models.Model):
         return self.codigo
 
 
-class Pregunta(models.Model):
-    pregunta_espanol = models.TextField(null=False, verbose_name=_('Pregunta Espanol'))
-    pregunta_ingles = models.TextField(null=False, verbose_name=_('Pregunta Ingés'))
-    intitucional = models.BooleanField(verbose_name=_('Pregunta Institucional'), default=False)
-    cuestionario = models.ForeignKey(Cuestionario, on_delete=models.DO_NOTHING, related_name=_('preguntas'))
+class Seccion(models.Model):
+    nombre = models.CharField(max_length=25, null=False, verbose_name=_('Nombre Seccion'), unique=True)
+    cuestionario = models.ForeignKey('Cuestionario', on_delete=models.DO_NOTHING, related_name=_('secciones'))
     habilitado = models.BooleanField(verbose_name='Habilitado', default=True)
     creado_en = models.DateField(_("Fecha Creado"), default=datetime.date.today)
     actualizado_en = models.DateField(_("Fecha Ultima Actualizacion"), default=datetime.date.today)
+
+    class Meta:
+        verbose_name_plural = _('Secciones')
+
+    def __str__(self):
+        return self.nombre
+
+
+class Pregunta(models.Model):
+    pregunta_espanol = models.TextField(null=False, verbose_name=_('Pregunta Espanol'))
+    pregunta_ingles = models.TextField(null=False, verbose_name=_('Pregunta Ingés'))
+    institucional = models.BooleanField(verbose_name=_('Pregunta Institucional'), default=False)
+    seccion = models.ForeignKey(Seccion, on_delete=models.DO_NOTHING, related_name='preguntas', null=True)
+    habilitado = models.BooleanField(verbose_name='Habilitado', default=True)
+    creado_en = models.DateField(_("Fecha Creado"), default=datetime.date.today)
+    actualizado_en = models.DateField(_("Fecha Ultima Actualizacion"), default=datetime.date.today)
+
+    def __str__(self):
+        return self.pregunta_espanol
 
 
 class Registro(models.Model):
@@ -96,9 +115,9 @@ class Registro(models.Model):
 
 
 class Respuesta(models.Model):
-    pregunta = models.ForeignKey(Pregunta, on_delete=models.DO_NOTHING)
+    pregunta = models.ForeignKey('Pregunta', on_delete=models.DO_NOTHING)
     respuesta = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    registro = models.ForeignKey(Registro, on_delete=models.DO_NOTHING, related_name=_('respuestas'))
+    registro = models.ForeignKey('Registro', on_delete=models.DO_NOTHING, related_name=_('respuestas'))
     habilitado = models.BooleanField(verbose_name='Habilitado', default=True)
     creado_en = models.DateField(_("Fecha Creado"), default=datetime.date.today)
     actualizado_en = models.DateField(_("Fecha Ultima Actualizacion"), default=datetime.date.today)

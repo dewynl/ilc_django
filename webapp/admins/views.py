@@ -3,8 +3,8 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView
 
 from ilc import settings
-from webapp.admins.forms import ProfesorForm, HorarioForm
-from webapp.models import Profesor, Horario
+from webapp.admins.forms import ProfesorForm, HorarioForm, GrupoForm
+from webapp.models import Profesor, Horario, Grupo
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -48,3 +48,22 @@ class EditarHorarioFormView(UpdateView):
     template_name = 'admins/horarios/horarios-form.html'
     success_url = reverse_lazy('horarios-index')
     form_class = HorarioForm
+
+
+class GruposListView(ListView):
+    model = Grupo
+    template_name = 'admins/grupos/grupos-list.html'
+
+
+class CrearGruposFormView(CreateView):
+    model = Grupo
+    template_name = 'admins/grupos/grupos-form.html'
+    success_url = reverse_lazy('grupos-index')
+    form_class = GrupoForm
+
+
+class EditarGruposFormView(UpdateView):
+    model = Grupo
+    template_name = 'admins/grupos/grupos-form.html'
+    success_url = reverse_lazy('grupos-index')
+    form_class = GrupoForm

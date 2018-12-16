@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admins/base.html' %}
 {% load static %}
 
 {% block title %} Nuevo Horario {% endblock %}
@@ -46,7 +46,7 @@
         $("select").select2({
             placeholder: "Seleccione",
             allowClear: true,
-            minimumResultsForSearch: -1
+            minimumResultsForSearch: 1
         });
     </script>
 {% endblock %}

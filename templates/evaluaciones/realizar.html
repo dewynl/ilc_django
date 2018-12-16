@@ -1,0 +1,208 @@
+{% extends 'evaluaciones/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'custom/realizar.css' %}" rel="stylesheet"/>
+    <link href="{% static 'assets/libs/raty-js/lib/jquery.raty.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+    <input value="{% static 'assets/images/rating/' %}" hidden>
+    <div class="row">
+        <div class="col-lg-12">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <div class="card wizard-card" data-color="blue" id="wizard">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="wizard-header">
+                            <h3 class="wizard-title">
+                                {% if idioma == 'esp' %}
+                                    Evaluación Profesoral
+                                {% else %}
+                                    Teachers' Evaluation
+                                {% endif %}
+                            </h3>
+                            <h5></h5>
+                        </div>
+
+                        <div class="wizard-navigation">
+                            <ul>
+                                <li><a href="#datos-generales" data-toggle="tab">Datos Generales</a></li>
+                                <li><a href="#preguntas" data-toggle="tab">Encuesta</a></li>
+                                <li><a href="#fin" data-toggle="tab">Fin</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="tab-pane" id="datos-generales">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4 class="info-text">Información Básica</h4>
+                                    </div>
+
+                                    <div class="col-sm-12">
+
+                                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">person</i>
+                                                </span>
+
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Profesor</label>
+                                                <input name="cuestionario" id="cuestionario"
+                                                       value="{{ cuestionario.id }}" hidden>
+                                                <select class="select form-control" name="profesor" required>
+                                                    <option></option>
+                                                    {% for profesor in profesores %}
+                                                        <option value="{{ profesor.id }}">{{ profesor.nombre }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">people</i>
+                                                </span>
+
+                                            <div class="form-group label-floating">
+                                                <label for="grupo" id="grupo-label"
+                                                       class="control-label">Grupo</label>
+                                                <select class="select form-control" id="grupo" name="grupo" required>
+                                                    <option></option>
+                                                    {% for grupo in grupos %}
+                                                        <option value="{{ grupo.id }}">
+                                                            {{ grupo.horario }} {{ grupo.nombre }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="preguntas">
+                                <h4 class="info-text"></h4>
+                                <div class="row">
+                                    <div class="">
+                                        {% for seccion in cuestionario.secciones.all %}
+                                            <div class="card">
+                                                <hr>
+                                                <div class="card-body">
+                                                    <h2 class="card-title"
+                                                        style="text-align: center">{{ seccion.nombre }}</h2>
+                                                </div>
+                                                <hr>
+                                                {% for pregunta in seccion.preguntas.all %}
+                                                    <div class="container"
+                                                         style="text-align: center; min-height: 50%;">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <h4 class="card-title">
+                                                                        {% if idioma == 'esp' %}
+                                                                            {{ pregunta.pregunta_espanol }}
+                                                                        {% else %}
+                                                                            {{ pregunta.pregunta_ingles }}
+                                                                        {% endif %}
+                                                                    </h4>
+                                                                    <div class="default-star-rating"
+                                                                         name="rating_{{ pregunta.id }}"
+                                                                         id="rating_{{ pregunta.id }}"></div>
+                                                                    <input value="3" id="input_{{ pregunta.id }}"
+                                                                           name="preg_{{ pregunta.id }}" hidden>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <br>
+                                                {% endfor %}
+                                            </div>
+                                            <br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="fin">
+                                <div class="row">
+                                    <h2 class="info-text">¡Gracias por su ayuda!</h2>
+
+                                    <h3 class="info-text">
+                                        Si tienes algún otro comentario, puedes dejarlo a continación.
+                                    </h3>
+                                    <div class="col-sm-12">
+
+                                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons"></i>
+                                                </span>
+
+                                            <div class="form-group label-floating">
+                                                <label id="comentario-label"
+                                                       class="control-label">Comentario</label>
+                                                <textarea rows="3" name="comentario"
+                                                          class="form-control text-area" maxlength="200"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="info-text"><input id='btn-submit' type='submit'
+                                                                class='btn btn-finish btn-fill btn-danger btn-wd'
+                                                                name='finish' value='Enviar Formulario'/></p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-footer">
+                            <div class="pull-right">
+                                <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next'
+                                       value='Siguiente'/>
+                            </div>
+
+                            <div class="pull-left">
+                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd'
+                                       name='previous' value='Anterior'/>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script src="{% static 'assets/libs/raty-js/lib/jquery.raty.js' %}"></script>
+    <script type="text/javascript">
+        $.fn.raty.defaults.path = '/static/assets/images/rating/';
+
+        let valor = null;
+
+        // Default
+        $('.default-star-rating').raty({
+            score: 3
+        });
+
+        $(".default-star-rating > img").on('click', function (event) {
+            console.log($(this).attr('alt'));
+            valor = $(this).attr('alt')
+        });
+
+        $(".default-star-rating").on('click', function (e) {
+            console.log($(this).attr('id'));
+            var l = $(this).attr('id').split('_');
+            $("#input_" + l[1]).val(valor)
+        })
+    </script>
+{% endblock %}

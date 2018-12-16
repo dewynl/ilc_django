@@ -1,0 +1,25 @@
+{% extends 'evaluaciones/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <!-- Wizard container  -->
+            <div class="wizard-container">
+                <div class="card wizard-card" data-color="red" id="wizard">
+                    <div class="wizard-header">
+                        <h3 class="wizard-title">
+                            ¡EVALUACIÓN PROFESORAL!
+                        </h3>
+                    </div>
+                    <h5 class="info-text">Seleccione el idioma de la evaluación</h5>
+                    <p class="info-text">
+                        <a class="btn btn-primary" href="registro/realizar/?codigo=PROF1&lang=esp">Español</a>
+                        <a class="btn btn-success" href="registro/realizar/?codigo=PROF1&lang=eng">English</a>
+                    </p>
+                </div>
+            </div>
+            <!-- wizard container -->
+        </div>
+    </div>
+    <!-- row -->
+{% endblock %}

@@ -1,0 +1,27 @@
+#progressBar {
+    width: 0%;
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white;
+    border: 1px black;
+}
+
+div.card2 {
+    /*width: 250px;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    background-color: whitesmoke;
+    margin: 10px;
+    word-wrap: break-word;
+}
+
+div.nombre-seccion {
+    margin: 10px;
+}
+
+textarea {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+

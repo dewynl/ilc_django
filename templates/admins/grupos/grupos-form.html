@@ -1,12 +1,12 @@
 {% extends 'admins/base.html' %}
 {% load static %}
 
-{% block title %} Nuevo Profesor {% endblock %}
+{% block title %} Nuevo Grupo {% endblock %}
 
-{% block page_title %} Creando nuevo profesor {% endblock %}
+{% block page_title %} Creando nuevo grupo {% endblock %}
 
 {% block css %}
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
@@ -15,8 +15,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Nuevo Profesor</h4>
-                    <h6 class="card-subtitle"> All with bootstrap element classies </h6>
+                    <h4 class="card-title">Nuevo Grupo</h4>
+                    <h6 class="card-subtitle"> Ingrese las informaciones requeridas </h6>
                     <form class="m-t-30 form-group" method="post" action="">
                         <div class="form-group">
                             {% csrf_token %}
@@ -34,10 +34,17 @@
 {% endblock %}
 
 {% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script type="text/javascript">
         $("#goBackBtn").on('click', function (e) {
             e.preventDefault();
             window.history.back();
+        });
+
+        $("select").select2({
+            placeholder: "Seleccione",
+            allowClear: true,
+            minimumResultsForSearch: 1
         });
     </script>
 {% endblock %}

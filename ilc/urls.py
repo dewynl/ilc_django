@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 from webapp.admins.views import IndexView, ProfesoresListView, CrearProfesorFormView, EditarProfesorFormView, \
-    HorariosListView, CrearHorarioFormView, EditarHorarioFormView
+    HorariosListView, CrearHorarioFormView, EditarHorarioFormView, GruposListView, CrearGruposFormView, \
+    EditarGruposFormView
+from webapp.evaluaciones.views import SeleccionarIdiomaTemplateView, RealizarRegistroFormView, \
+    RegistroRealizadoTemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +33,14 @@ urlpatterns = [
     path('admins/horarios/', HorariosListView.as_view(), name='horarios-index'),
     path('admins/horarios/crear/', CrearHorarioFormView.as_view(), name='horarios-crear'),
     path('admins/horarios/editar/<int:pk>', EditarHorarioFormView.as_view(), name='horarios-editar'),
+    #GRUPOS
+    path('admins/grupos/', GruposListView.as_view(), name='grupos-index'),
+    path('admins/grupos/crear/', CrearGruposFormView.as_view(), name='grupos-crear'),
+    path('admins/grupos/editar/<int:pk>', EditarGruposFormView.as_view(), name='grupos-editar'),
+    #EVALUACIONES
+    path('', SeleccionarIdiomaTemplateView.as_view(), name='idioma-evaluacion-index'),
+    path('registro/realizar/', RealizarRegistroFormView.as_view(), name='evaluacion-index'),
+    path('registro/realizado/', RegistroRealizadoTemplateView.as_view(), name='realizado-view'),
+
+
 ]

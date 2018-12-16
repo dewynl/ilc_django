@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Evaluación Profesoral</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width"/>
+
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/images/logo.png' %}"/>
+    <link rel="icon" type="image/png" href="{% static 'assets/images/logo.png' %}"/>
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+
+    <!-- CSS Files -->
+    <link href="{% static 'material-bootstrap-wizard-v1.0.2/assets/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'material-bootstrap-wizard-v1.0.2/assets/css/material-bootstrap-wizard.css' %}"
+          rel="stylesheet"/>
+
+    {% block css %}{% endblock %}
+
+</head>
+
+<body>
+<div class="image-container set-full-height"
+     style="background-image: url('{% static 'assets/images/Bar.png' %}')">
+
+    <!--   Big container   -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div> <!--  big container -->
+
+    {% comment %}
+    <div class="footer">
+        <div style="color: black" class="container text-center">
+            Evento organizado con <i class="fa fa-heart heart"></i>
+            por el Comité de Estudiantes de Ingeniería de Sistemas y Computación, PUCMM, Santiago.
+        </div>
+    </div>
+    {% endcomment %}
+</div>
+
+<script src="{% static 'material-bootstrap-wizard-v1.0.2/assets/js/jquery-2.2.4.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'material-bootstrap-wizard-v1.0.2/assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'material-bootstrap-wizard-v1.0.2/assets/js/jquery.bootstrap.js' %}" type="text/javascript"></script>
+
+<!--  Plugin for the Wizard -->
+<script src="{% static 'material-bootstrap-wizard-v1.0.2/assets/js/material-bootstrap-wizard.js' %}"></script>
+<script src="{%  static 'material-bootstrap-wizard-v1.0.2/assets/js/jquery.validate.min.js' %}"></script>
+{% block js %}{% endblock %}
+</body>
+</html>
