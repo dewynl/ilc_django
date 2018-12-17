@@ -1,4 +1,3 @@
-import django_heroku
 """
 Django settings for ilc project.
 
@@ -38,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'bootstrap_datepicker_plus',
-    'django_heroku',
     'webapp',
 
 ]
@@ -129,7 +127,3 @@ STATIC_DIRS = 'static'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
