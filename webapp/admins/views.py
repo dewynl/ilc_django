@@ -67,3 +67,21 @@ class EditarGruposFormView(UpdateView):
     template_name = 'admins/grupos/grupos-form.html'
     success_url = reverse_lazy('grupos-index')
     form_class = GrupoForm
+
+
+class EvaluacionesPorProfesorView(TemplateView):
+    template_name = 'admins/evaluaciones/evaluacion-profesores.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EvaluacionesPorProfesorView, self).get_context_data(**kwargs)
+        context['profesores'] = Profesor.objects.filter(habilitado=True)
+        return context
+
+
+class EvaluacionesALaInstitucionView(TemplateView):
+    template_name = 'admins/evaluaciones/evaluacion-institucion.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EvaluacionesALaInstitucionView, self).get_context_data(**kwargs)
+        context['profesores'] = Profesor.objects.filter(habilitado=True)
+        return context

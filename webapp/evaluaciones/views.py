@@ -16,8 +16,8 @@ class RealizarRegistroFormView(View):
     def get(self, request, *args, **kwargs):
         context = dict()
         context['idioma'] = self.request.GET['lang']
-        context['profesores'] = Profesor.objects.all()
-        context['grupos'] = Grupo.objects.all()
+        context['profesores'] = Profesor.objects.filter(habilitado=True)
+        context['grupos'] = Grupo.objects.filter(habilitado=True)
         context['cuestionario'] = Cuestionario.objects.filter(codigo=request.GET['codigo']).first()
         return render(request, self.template_name, context)
 

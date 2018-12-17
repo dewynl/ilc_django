@@ -1,0 +1,113 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+
+{% block title %} Ver Evaluación {% endblock %}
+
+{% block page_title %} Evaluaciones a la Institución {% endblock %}
+
+{% block css %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+
+    <link href="{% static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Promedios</h4>
+                    <h6 class="card-subtitle">Promedio de puntaje por pregunta en las evaluaciones.</h6>
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+
+    <script src="{% static 'assets/extra-libs/DataTables/datatables.min.js' %}"></script>
+    <script src="{% static 'dist/js/pages/datatable/datatable-basic.init.js' %}"></script>
+    <script>
+        $("select").select2({
+            placeholder: "Seleccione",
+            allowClear: true,
+            minimumResultsForSearch: 1
+        })
+    </script>
+    <script type="text/javascript">
+        function colorRandom() {
+            var list = ['rgba(255, 99, 132, 0.4)',
+                'rgba(54, 162, 235, 0.4)',
+                'rgba(255, 206, 86, 0.4)',
+                'rgba(75, 192, 192, 0.4)',
+                'rgba(153, 102, 255, 0.4)',
+                'rgba(255, 159, 64, 0.4)'];
+
+            return list[Math.floor(Math.random() * list.length)];
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "/ajax/admin/promedioInstitucion/",
+                data: {data: this.value},
+                method: 'GET',
+                success: function (resp) {
+                    var colores = [];
+                    var bordes = [];
+
+                    for (var i = 0; i < resp.totalPregs; i++) {
+                        colores.push(colorRandom());
+                        bordes.push('rgba(54, 162, 235, 1)');
+                    }
+
+                    var labels = [];
+                    var valor = [];
+
+                    for (let key in resp.respuestas) {
+                        labels.push(key);
+                        valor.push(resp.respuestas[key]);
+                    }
+
+
+                    var ctx = document.getElementById("myChart").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Promedio de puntuaciones',
+                                data: valor,
+                                backgroundColor: colores,
+                                borderColor: colores,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    display: true, //this will remove all the x-axis grid lines
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            },
+                            legend: {
+                                display: false
+                            },
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
