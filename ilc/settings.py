@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'bootstrap_datepicker_plus',
+    'django_heroku',
     'webapp',
 
 ]
