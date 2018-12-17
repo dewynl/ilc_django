@@ -1,10 +1,31 @@
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, RedirectView, FormView
 
 from ilc import settings
-from webapp.admins.forms import ProfesorForm, HorarioForm, GrupoForm
+from webapp.admins.forms import ProfesorForm, HorarioForm, GrupoForm, LoginForm
 from webapp.models import Profesor, Horario, Grupo
+
+
+class LogoutAdminView(RedirectView):
+    pattern_name = 'admin-login'
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return super(LogoutAdminView, self).get(request, *args, **kwargs)
+
+
+class AdminLoginFormView(FormView):
+    template_name = "admins/login/login.html"
+    form_class = LoginForm
+    success_url = reverse_lazy('admins-index')
+
+    def form_valid(self, form):
+        user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+        if user and user.is_staff:
+            login(self.request, user=user)
+        return super(AdminLoginFormView, self).form_valid(form)
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -12,64 +33,74 @@ class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'admins/index.html'
 
 
-class ProfesoresListView(ListView):
+class ProfesoresListView(LoginRequiredMixin, ListView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Profesor
     template_name = 'admins/profesores/profesores-list.html'
 
 
-class CrearProfesorFormView(CreateView):
+class CrearProfesorFormView(LoginRequiredMixin, CreateView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Profesor
     template_name = 'admins/profesores/profesores-form.html'
     success_url = reverse_lazy('profesores-index')
     form_class = ProfesorForm
 
 
-class EditarProfesorFormView(UpdateView):
+class EditarProfesorFormView(LoginRequiredMixin, UpdateView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Profesor
     template_name = 'admins/profesores/profesores-form.html'
     success_url = reverse_lazy('profesores-index')
     form_class = ProfesorForm
 
 
-class HorariosListView(ListView):
+class HorariosListView(LoginRequiredMixin, ListView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Horario
     template_name = 'admins/horarios/horarios-list.html'
 
 
-class CrearHorarioFormView(CreateView):
+class CrearHorarioFormView(LoginRequiredMixin, CreateView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Horario
     template_name = 'admins/horarios/horarios-form.html'
     success_url = reverse_lazy('horarios-index')
     form_class = HorarioForm
 
 
-class EditarHorarioFormView(UpdateView):
+class EditarHorarioFormView(LoginRequiredMixin, UpdateView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Horario
     template_name = 'admins/horarios/horarios-form.html'
     success_url = reverse_lazy('horarios-index')
     form_class = HorarioForm
 
 
-class GruposListView(ListView):
+class GruposListView(LoginRequiredMixin, ListView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Grupo
     template_name = 'admins/grupos/grupos-list.html'
 
 
-class CrearGruposFormView(CreateView):
+class CrearGruposFormView(LoginRequiredMixin, CreateView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Grupo
     template_name = 'admins/grupos/grupos-form.html'
     success_url = reverse_lazy('grupos-index')
     form_class = GrupoForm
 
 
-class EditarGruposFormView(UpdateView):
+class EditarGruposFormView(LoginRequiredMixin, UpdateView):
+    login_url = settings.ADMIN_LOGIN_URL
     model = Grupo
     template_name = 'admins/grupos/grupos-form.html'
     success_url = reverse_lazy('grupos-index')
     form_class = GrupoForm
 
 
-class EvaluacionesPorProfesorView(TemplateView):
+class EvaluacionesPorProfesorView(LoginRequiredMixin, TemplateView):
+    login_url = settings.ADMIN_LOGIN_URL
     template_name = 'admins/evaluaciones/evaluacion-profesores.html'
 
     def get_context_data(self, **kwargs):
@@ -78,7 +109,8 @@ class EvaluacionesPorProfesorView(TemplateView):
         return context
 
 
-class EvaluacionesALaInstitucionView(TemplateView):
+class EvaluacionesALaInstitucionView(LoginRequiredMixin, TemplateView):
+    login_url = settings.ADMIN_LOGIN_URL
     template_name = 'admins/evaluaciones/evaluacion-institucion.html'
 
     def get_context_data(self, **kwargs):

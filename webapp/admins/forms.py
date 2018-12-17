@@ -1,7 +1,13 @@
 from bootstrap_datepicker_plus import TimePickerInput
 from django.forms import ModelForm
+from django import forms
 
 from webapp.models import Profesor, Horario, Grupo
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=15, min_length=5, widget={})
+    password = forms.CharField(widget=forms.PasswordInput())
 
 
 class ProfesorForm(ModelForm):
@@ -14,6 +20,7 @@ class ProfesorForm(ModelForm):
         self.fields['nombre'].widget.attrs.update(
             {'class': 'form-control', 'placeholder': 'Ingrese nombre del profesor'})
         self.fields['habilitado'].widget.attrs.update({'class': '', })
+
 
 class HorarioForm(ModelForm):
     class Meta:

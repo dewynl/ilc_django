@@ -19,13 +19,16 @@ from django.urls import path
 from webapp.admins.ajax import ComentariosPorProfesorAjax, PromedioPorProfesorAjax, PromedioInstitucionAjax
 from webapp.admins.views import IndexView, ProfesoresListView, CrearProfesorFormView, EditarProfesorFormView, \
     HorariosListView, CrearHorarioFormView, EditarHorarioFormView, GruposListView, CrearGruposFormView, \
-    EditarGruposFormView, EvaluacionesPorProfesorView, EvaluacionesALaInstitucionView
+    EditarGruposFormView, EvaluacionesPorProfesorView, EvaluacionesALaInstitucionView, LogoutAdminView, \
+    AdminLoginFormView
 from webapp.evaluaciones.views import SeleccionarIdiomaTemplateView, RealizarRegistroFormView, \
     RegistroRealizadoTemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('admins/', IndexView.as_view(), name='admins-index'),
+    path('admins/login/', AdminLoginFormView.as_view(), name='admin-login'),
+    path('admins/logout/', LogoutAdminView.as_view(), name='cerrar-sesion'),
     # PROFESORES
     path('admins/profesores/', ProfesoresListView.as_view(), name='profesores-index'),
     path('admins/profesores/crear/', CrearProfesorFormView.as_view(), name='profesores-crear'),

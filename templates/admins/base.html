@@ -8,7 +8,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/favicon.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/logo.png' %}">
     <title>{% block title %}{% endblock %}</title>
 
     <!-- Custom CSS -->
@@ -55,20 +55,10 @@
                     <!-- Logo icon -->
                     <b class="logo-icon">
                         <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                        <!-- Dark Logo icon -->
-                        <img src="{% static 'assets/images/logo-icon.png' %}" alt="homepage" class="dark-logo"/>
                         <!-- Light Logo icon -->
-                        <img src="{% static 'assets/images/logo-light-icon.png' %}" alt="homepage" class="light-logo"/>
+                        <img style="width: 100px;" src="{% static 'assets/images/logo.png' %}" alt="homepage"
+                             class="light-logo"/>
                     </b>
-                    <!--End Logo icon -->
-                    <!-- Logo text -->
-                    <span class="logo-text">
-                            <!-- dark Logo text -->
-                            <img src="{% static 'assets/images/logo-text.png' %}" alt="homepage" class="dark-logo"/>
-                        <!-- Light Logo text -->
-                            <img src="{% static 'assets/images/logo-light-text.png' %}" class="light-logo"
-                                 alt="homepage"/>
-                        </span>
                 </a>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -188,25 +178,29 @@
                         <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href=""
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
-                            <span style="color: white">Steave Jobs</span>
+                            {% if user.is_authenticated %}
+                                <span style="color: white">{{ user.username }}</span>
+                            {% else %}
+                                <p>Welcome, new user. Please log in.</p>
+                            {% endif %}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <span class="with-arrow">
                                     <span class="bg-primary"></span>
                                 </span>
                             <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
-                                <div class="">
-                                    <img src="{% static 'assets/images/users/1.jpg' %}" alt="user" class="img-circle"
-                                         width="60">
-                                </div>
-                                <div class="m-l-10">
-                                    <h4 class="m-b-0">Steave Jobs</h4>
-                                    <p class=" m-b-0">varun@gmail.com</p>
+                                <div class="m-l-10" style="margin-left: 20px;margin-top: 10px;">
+                                    {% if user.is_authenticated %}
+                                        <h4 class="m-b-0">{{ user.username }}</h4>
+                                        <p class=" m-b-0">{{ user.email }}</p>
+                                    {% else %}
+                                        <p>Welcome, new user. Please log in.</p>
+                                    {% endif %}
                                 </div>
                             </div>
-                            <a class="dropdown-item" href="javascript:void(0)">
-                                <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                            <a class="dropdown-item" href="javascript:void(0)">
+                            {% comment %}<a class="dropdown-item" href="javascript:void(0)">
+                                <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>{% endcomment %}
+                            <a class="dropdown-item" href="/admins/logout/">
                                 <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                             <div class="dropdown-divider"></div>
                         </div>
@@ -238,7 +232,8 @@
                                     class="mdi mdi-adjust"></i><span
                                     class="hide-menu"> Evaluaciones Profesorales </span></a></li>
                             <li class="sidebar-item"><a href="/admins/evaluaciones/institucion/" class="sidebar-link"><i
-                                    class="mdi mdi-adjust"></i><span class="hide-menu">Evaluaciones Institución</span></a>
+                                    class="mdi mdi-adjust"></i><span
+                                    class="hide-menu">Evaluaciones Institución</span></a>
                             </li>
                         </ul>
                     </li>
@@ -258,7 +253,8 @@
                                             class="mdi mdi-octagram"></i><span
                                             class="hide-menu">Crear Profesor</span></a>
                                     </li>
-                                    <li class="sidebar-item"><a href="/admins/profesores/grupos/" class="sidebar-link"><i
+                                    <li class="sidebar-item"><a href="/admins/profesores/grupos/"
+                                                                class="sidebar-link"><i
                                             class="mdi mdi-octagram"></i><span
                                             class="hide-menu">Grupos por Profesor</span></a>
                                     </li>
@@ -291,7 +287,7 @@
                                 </ul>
                             </li>
 
-                            <li class="sidebar-item"><a class="has-arrow sidebar-link" href="javascript:void(0)"
+                            {% comment %}<li class="sidebar-item"><a class="has-arrow sidebar-link" href="javascript:void(0)"
                                                         aria-expanded="false"><i class="mdi mdi-playlist-plus"></i>
                                 <span class="hide-menu">Usuarios</span></a>
                                 <ul aria-expanded="false" class="collapse second-level">
@@ -303,7 +299,7 @@
                                             class="hide-menu">Crear Usuario</span></a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>{% endcomment %}
                         </ul>
                     </li>
                 </ul>
