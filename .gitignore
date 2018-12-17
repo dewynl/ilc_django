@@ -165,3 +165,8 @@ venv.bak/
 *.iml
 out
 gen
+
+
+#CUSTOM
+staticfiles/
+webapp/migrations/
