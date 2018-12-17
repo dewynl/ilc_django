@@ -170,4 +170,4 @@ gen
 #CUSTOM
 staticfiles/
 webapp/migrations/
-venv/*
+venv/include/
