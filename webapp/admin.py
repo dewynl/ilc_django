@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from webapp.models import Profesor, Grupo, Horario, Dia, Seccion, Cuestionario, Pregunta, Respuesta, Registro
+from webapp.models import Profesor, Grupo, Horario, Dia, Seccion, Cuestionario, Pregunta, Respuesta, Registro, \
+    Configuracion
 
 
 class ProfesorAdmin(admin.ModelAdmin):
@@ -40,7 +41,12 @@ class RespuestaAdmin(admin.ModelAdmin):
 
 
 class RegistroAdmin(admin.ModelAdmin):
-    list_display = ('id', 'cuestionario', 'grupo', 'profesor', 'comentario', 'habilitado', 'creado_en', 'actualizado_en',)
+    list_display = (
+    'id', 'cuestionario', 'grupo', 'profesor', 'comentario', 'habilitado', 'creado_en', 'actualizado_en',)
+
+
+class ConfiguracionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre', 'valor')
 
 
 admin.site.register(Profesor, ProfesorAdmin)
@@ -52,3 +58,4 @@ admin.site.register(Cuestionario, CuestionarioAdmin)
 admin.site.register(Pregunta, PreguntaAdmin)
 admin.site.register(Respuesta, RespuestaAdmin)
 admin.site.register(Registro, RegistroAdmin)
+admin.site.register(Configuracion, ConfiguracionAdmin)

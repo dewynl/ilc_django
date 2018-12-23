@@ -3,11 +3,16 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, CreateView, FormView
 
-from webapp.models import Profesor, Grupo, Cuestionario, Registro, Respuesta, Pregunta
+from webapp.models import Profesor, Grupo, Cuestionario, Registro, Respuesta, Pregunta, Configuracion
 
 
 class SeleccionarIdiomaTemplateView(TemplateView):
     template_name = 'evaluaciones/idioma.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SeleccionarIdiomaTemplateView, self).get_context_data(**kwargs)
+        context['activada'] = Configuracion.objects.filter(nombre='encuestas_activadas', valor='true').exists()
+        return context
 
 
 class RealizarRegistroFormView(View):

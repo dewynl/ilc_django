@@ -5,10 +5,17 @@
 
 {% block page_title %} Evaluaciones por Profesor {% endblock %}
 
+
+
 {% block css %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
-
     <link href="{% static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet">
+    <!-- This Page CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'assets/libs/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css' %}">
+{% endblock %}
+
+{% block page_title_left %}
 {% endblock %}
 
 {% block content %}
@@ -37,9 +44,7 @@
                                 <th>Comentario</th>
                             </tr>
                             </thead>
-                            <tbody>
-
-                            </tbody>
+                            <tbody></tbody>
                             <tfoot>
                             <tr>
                                 <th>Comentario</th>
@@ -72,6 +77,33 @@
 
     <script src="{% static 'assets/extra-libs/DataTables/datatables.min.js' %}"></script>
     <script src="{% static 'dist/js/pages/datatable/datatable-basic.init.js' %}"></script>
+
+    <!-- This Page JS -->
+    <script src="{% static 'assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js' %}"></script>
+
+    <script type="text/javascript">
+        $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+        var radioswitch = function () {
+            var bt = function () {
+                $(".radio-switch").on("switch-change", function () {
+                    $(".radio-switch").bootstrapSwitch("toggleRadioState")
+                }), $(".radio-switch").on("switch-change", function () {
+                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+                }), $(".radio-switch").on("switch-change", function () {
+                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+                })
+            };
+            return {
+                init: function () {
+                    bt()
+                }
+            }
+        }();
+        $(document).ready(function () {
+            radioswitch.init()
+        });
+    </script>
+
     <script>
         $("select").select2({
             placeholder: "Seleccione",

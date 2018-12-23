@@ -11,11 +11,13 @@
                             ¡EVALUACIÓN PROFESORAL!
                         </h3>
                     </div>
-                    <h5 class="info-text">Seleccione el idioma de la evaluación</h5>
-                    <p class="info-text">
-                        <a class="btn btn-primary" href="registro/realizar/?codigo=PROF1&lang=esp">Español</a>
-                        <a class="btn btn-success" href="registro/realizar/?codigo=PROF1&lang=eng">English</a>
-                    </p>
+                    {% if activada %}
+                        <h5 class="info-text">Seleccione el idioma de la evaluación</h5>
+                        <p class="info-text">
+                            <a class="btn btn-primary" href="registro/realizar/?codigo=PROF1&lang=esp">Español</a>
+                            <a class="btn btn-success" href="registro/realizar/?codigo=PROF1&lang=eng">English</a>
+                        </p>
+                    {% endif %}
                 </div>
             </div>
             <!-- wizard container -->

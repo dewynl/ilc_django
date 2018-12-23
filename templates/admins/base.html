@@ -89,7 +89,7 @@
                     <!-- ============================================================== -->
                     <!-- Comment -->
                     <!-- ============================================================== -->
-                    <li class="nav-item dropdown">
+                    {% comment %} <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
                             <i class="ti-bell font-20"></i>
@@ -162,7 +162,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li>{% endcomment %}
                     <!-- ============================================================== -->
                     <!-- End Comment -->
                     <!-- ============================================================== -->
@@ -323,6 +323,12 @@
                 <div class="col-5 align-self-center">
                     <h4 class="page-title">{% block page_title %}{% endblock %}</h4>
                 </div>
+                <div class="col-7 align-self-center">
+                    <div class="d-flex no-block justify-content-end align-items-center">
+                        {% block page_title_left %}{% endblock %}
+                    </div>
+                </div>
+
             </div>
         </div>
         <!-- ============================================================== -->

@@ -121,3 +121,14 @@ class Respuesta(models.Model):
     habilitado = models.BooleanField(verbose_name='Habilitado', default=True)
     creado_en = models.DateField(_("Fecha Creado"), default=datetime.date.today)
     actualizado_en = models.DateField(_("Fecha Ultima Actualizacion"), default=datetime.date.today)
+
+
+class Configuracion(models.Model):
+    nombre = models.CharField(verbose_name='Nombre Configuracion', max_length=25, null=False, unique=True)
+    valor = models.CharField(verbose_name='Valor Configuracion', max_length=25, null=False, unique=False)
+
+    class Meta:
+        verbose_name_plural = _('Configuraciones')
+
+    def __str__(self):
+        return self.nombre
