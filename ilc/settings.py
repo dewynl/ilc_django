@@ -76,38 +76,29 @@ WSGI_APPLICATION = 'ilc.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-'''
 
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ilc_dev',
-        'USER': 'ilc_dev',
-        'PASSWORD': 'ilcadmindevdb',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ilc_dev',
+            'USER': 'ilc_dev',
+            'PASSWORD': 'ilcadmindevdb',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
-'''
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd5faqhrhjgqsmp',
-        'USER': 'tlwjnxostdfpis',
-        'PASSWORD': '3ecc9e5f969ff3d3540d5c4556dc99b8e585487125f355891944cbde26fc31ca',
-        'HOST': 'ec2-54-163-245-64.compute-1.amazonaws.com',
-        'PORT': '5432',
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ilc_prod',
+            'USER': 'user_prod',
+            'PASSWORD': 'ilcevaluationprod',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
 
 
 # Password validation
@@ -148,7 +139,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_DIRS = 'static'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
