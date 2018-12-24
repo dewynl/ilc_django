@@ -20,7 +20,7 @@ from webapp.admins.ajax import ComentariosPorProfesorAjax, PromedioPorProfesorAj
 from webapp.admins.views import IndexView, ProfesoresListView, CrearProfesorFormView, EditarProfesorFormView, \
     HorariosListView, CrearHorarioFormView, EditarHorarioFormView, GruposListView, CrearGruposFormView, \
     EditarGruposFormView, EvaluacionesPorProfesorView, EvaluacionesALaInstitucionView, LogoutAdminView, \
-    AdminLoginFormView
+    AdminLoginFormView, CambiarEstadoEvaluaciones
 from webapp.evaluaciones.views import SeleccionarIdiomaTemplateView, RealizarRegistroFormView, \
     RegistroRealizadoTemplateView
 
@@ -44,6 +44,7 @@ urlpatterns = [
     # ADMIN-EVALUACIONES PROFESORALES
     path('admins/evaluaciones/profesores/', EvaluacionesPorProfesorView.as_view(), name='evaluaciones-profesores-index'),
     path('admins/evaluaciones/institucion/', EvaluacionesALaInstitucionView.as_view(), name='evaluaciones-institucion-index'),
+    path('admins/evaluaciones/cambiarEstado/', CambiarEstadoEvaluaciones.as_view(), name='cambiar-estado-view'),
     # EVALUACIONES
     path('', SeleccionarIdiomaTemplateView.as_view(), name='idioma-evaluacion-index'),
     path('registro/realizar/', RealizarRegistroFormView.as_view(), name='evaluacion-index'),

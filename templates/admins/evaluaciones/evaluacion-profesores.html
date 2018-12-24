@@ -10,12 +10,14 @@
 {% block css %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
     <link href="{% static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet">
-    <!-- This Page CSS -->
-    <link rel="stylesheet" type="text/css"
-          href="{% static 'assets/libs/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css' %}">
 {% endblock %}
 
 {% block page_title_left %}
+    {% if encuestas_activadas %}
+        <a class="btn btn-warning" href="/admins/evaluaciones/cambiarEstado/?estado=false">Desactivar</a>
+    {% else %}
+        <a class="btn btn-facebook" href="/admins/evaluaciones/cambiarEstado/?estado=true">Activar</a>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -79,37 +81,18 @@
     <script src="{% static 'dist/js/pages/datatable/datatable-basic.init.js' %}"></script>
 
     <!-- This Page JS -->
-    <script src="{% static 'assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js' %}"></script>
 
-    <script type="text/javascript">
-        $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
-        var radioswitch = function () {
-            var bt = function () {
-                $(".radio-switch").on("switch-change", function () {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioState")
-                }), $(".radio-switch").on("switch-change", function () {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
-                }), $(".radio-switch").on("switch-change", function () {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
-                })
-            };
-            return {
-                init: function () {
-                    bt()
-                }
-            }
-        }();
-        $(document).ready(function () {
-            radioswitch.init()
-        });
-    </script>
 
     <script>
         $("select").select2({
             placeholder: "Seleccione",
             allowClear: true,
             minimumResultsForSearch: 1
-        })
+        });
+
+        function cambiarEstadoEncuesta(estado){
+            console.log(estado);
+        }
     </script>
     <script type="text/javascript">
         function colorRandom() {

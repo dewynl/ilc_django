@@ -1,11 +1,12 @@
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView, RedirectView, FormView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, RedirectView, FormView, View
 
 from ilc import settings
 from webapp.admins.forms import ProfesorForm, HorarioForm, GrupoForm, LoginForm
-from webapp.models import Profesor, Horario, Grupo
+from webapp.models import Profesor, Horario, Grupo, Configuracion
 
 
 class LogoutAdminView(RedirectView):
@@ -106,6 +107,8 @@ class EvaluacionesPorProfesorView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(EvaluacionesPorProfesorView, self).get_context_data(**kwargs)
         context['profesores'] = Profesor.objects.filter(habilitado=True)
+        context['encuestas_activadas'] = Configuracion.objects.filter(nombre='encuestas_activadas',
+                                                                      valor='true').exists()
         return context
 
 
@@ -113,7 +116,13 @@ class EvaluacionesALaInstitucionView(LoginRequiredMixin, TemplateView):
     login_url = settings.ADMIN_LOGIN_URL
     template_name = 'admins/evaluaciones/evaluacion-institucion.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(EvaluacionesALaInstitucionView, self).get_context_data(**kwargs)
-        context['profesores'] = Profesor.objects.filter(habilitado=True)
-        return context
+
+class CambiarEstadoEvaluaciones(LoginRequiredMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        print(request.GET['estado'])
+        conf = Configuracion.objects.filter(nombre='encuestas_activadas').first()
+        conf.valor = request.GET['estado']
+        conf.save()
+        return redirect('/admins/evaluaciones/profesores/')
+
