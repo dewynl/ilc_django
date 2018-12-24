@@ -120,7 +120,6 @@ class EvaluacionesALaInstitucionView(LoginRequiredMixin, TemplateView):
 class CambiarEstadoEvaluaciones(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
-        print(request.GET['estado'])
         conf = Configuracion.objects.filter(nombre='encuestas_activadas').first()
         conf.valor = request.GET['estado']
         conf.save()
