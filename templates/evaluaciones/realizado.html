@@ -1,5 +1,5 @@
 {% extends 'evaluaciones/base.html' %}
-
+{% load static %}
 {% block content %}
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
@@ -9,8 +9,10 @@
                     {% if ok %}
                         <div class="wizard-header">
                             <h3 class="wizard-title">
-                                EVALUACIÓN COMPLETADA!
+                                ¡EVALUACIÓN COMPLETADA!
                             </h3>
+                            <h4>¡Gracias por ayudarnos a ser mejor!</h4>
+                            <img width="400" src="{% static 'images/volante.png' %}">
                         </div>
                     {% else %}
                         <div class="wizard-header">
