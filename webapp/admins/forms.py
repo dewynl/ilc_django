@@ -46,10 +46,11 @@ class HorarioForm(ModelForm):
 class GrupoForm(ModelForm):
     class Meta:
         model = Grupo
-        fields = ['nombre', 'horario', 'habilitado', ]
+        fields = ['nombre', 'horario', 'cantidad_encuestas', 'habilitado', ]
 
     def __init__(self, *args, **kwargs):
         super(GrupoForm, self).__init__(*args, **kwargs)
         self.fields['nombre'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Ingrese nombre del grupo'})
         self.fields['horario'].widget.attrs.update({'class': 'form-control select', 'style': 'width: 100%'})
+        self.fields['cantidad_encuestas'].widget.attrs.update({'class': 'form-control select', 'style': 'width: 100%'})
         self.fields['habilitado'].widget.attrs.update({'class': '', })

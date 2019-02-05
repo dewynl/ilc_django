@@ -9,9 +9,12 @@ class ComentariosPorProfesorAjax(JSONResponseMixin, View):
     def get(self, request, *args, **kwargs):
         profesor = Profesor.objects.filter(id=request.GET['data']).first()
         registros = Registro.objects.filter(profesor=profesor).filter(habilitado=True)
-        result = [{}]
-        for registro in registros:
-            result.append({'comentario': registro.comentario})
+        result = None
+        if len(registros) > 0:
+            result = [{}]
+            for registro in registros:
+                result.append({'comentario': registro.comentario})
+
         return self.render_json_response(result)
 
 

@@ -57,8 +57,10 @@ class Horario(models.Model):
 
 
 class Grupo(models.Model):
-    nombre = models.CharField(max_length=25, null=False, verbose_name=_('Nombre Grupo'), unique=True)
+    nombre = models.CharField(max_length=50, null=False, verbose_name=_('Nombre Grupo'), unique=True)
     horario = models.ForeignKey(Horario, on_delete=models.DO_NOTHING, verbose_name=_('Horario'), null=False)
+    cantidad_encuestas = models.IntegerField(validators=[MinValueValidator(0)], null=False,
+                                             verbose_name=_('Cantidad Máxima de Encuestas'), default=0)
     habilitado = models.BooleanField(verbose_name='Habilitado', default=True)
     creado_en = models.DateField(_("Fecha Creado"), default=datetime.date.today)
     actualizado_en = models.DateField(_("Fecha Ultima Actualizacion"), default=datetime.date.today)
